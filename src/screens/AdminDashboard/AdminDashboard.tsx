@@ -12,6 +12,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { styles } from './AdminDashboard.styles';
 import { theme } from '../../theme';
 
@@ -26,7 +27,7 @@ interface DashboardCard {
 }
 
 const AdminDashboard: React.FC = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<DrawerNavigationProp<any>>();
   const [fadeAnim] = useState(new Animated.Value(0));
   const [scaleAnim] = useState(new Animated.Value(0.9));
 
@@ -159,7 +160,13 @@ const AdminDashboard: React.FC = () => {
         style={styles.headerGradient}
       >
         <View style={styles.header}>
-          <View>
+          <TouchableOpacity 
+            onPress={() => navigation.openDrawer()} 
+            style={styles.menuButton}
+          >
+            <Icon name="menu" size={24} color={theme.colors.textPrimary} />
+          </TouchableOpacity>
+          <View style={{ flex: 1 }}>
             <Text style={styles.welcomeText}>Welcome back,</Text>
             <Text style={styles.adminName}>Admin</Text>
           </View>
