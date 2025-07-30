@@ -18,7 +18,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { styles } from './Login.styles';
-import { theme } from '../../theme';
+import { theme } from '../../theme/theme';
 
 const Login: React.FC = () => {
   const navigation = useNavigation();

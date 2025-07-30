@@ -13,8 +13,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { LineChart, BarChart, PieChart } from 'react-native-gifted-charts';
-import { styles } from './Analytics.styles';
-import { theme } from '../../theme';
+import { styles } from './styles/Analytics.styles';
+import { theme } from '../../theme/theme';
 
 const { width: screenWidth } = Dimensions.get('window');
 

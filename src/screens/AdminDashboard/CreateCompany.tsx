@@ -17,8 +17,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { Picker } from '@react-native-picker/picker';
-import { styles } from './CreateCompany.styles';
-import { theme } from '../../theme';
+import { styles } from './styles/CreateCompany.styles';
+import { theme } from '../../theme/theme';
 import { addCompany } from '../../store/slices/companiesSlice';
 
 const CreateCompany: React.FC = () => {

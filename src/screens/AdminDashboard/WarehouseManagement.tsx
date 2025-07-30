@@ -15,8 +15,8 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
-import { styles } from './WarehouseManagement.styles';
-import { theme } from '../../theme';
+import { styles } from './styles/WarehouseManagement.styles';
+import { theme } from '../../theme/theme';
 import { Warehouse } from '../../types';
 
 const WarehouseManagement: React.FC = () => {

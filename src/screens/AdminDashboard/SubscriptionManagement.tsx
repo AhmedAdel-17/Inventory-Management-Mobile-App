@@ -13,8 +13,8 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
-import { styles } from './SubscriptionManagement.styles';
-import { theme } from '../../theme';
+import { styles } from './styles/SubscriptionManagement.styles';
+import { theme } from '../../theme/theme';
 
 interface Subscription {
   id: string;

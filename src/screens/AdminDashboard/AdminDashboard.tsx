@@ -13,8 +13,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { styles } from './AdminDashboard.styles';
-import { theme } from '../../theme';
+import { styles } from './styles/AdminDashboard.styles';
+import { theme } from '../../theme/theme';
 
 interface DashboardCard {
   id: string;

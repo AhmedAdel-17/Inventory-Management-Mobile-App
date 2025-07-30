@@ -6,7 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
-import { theme } from '../theme';
+import { theme } from '../theme/theme';
 
 // Import screens
 import Login from '../screens/Login/Login';
