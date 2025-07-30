@@ -1,0 +1,207 @@
+// src/screens/PendingApprovals/PendingApprovals.styles.ts
+import { StyleSheet } from 'react-native';
+import { theme } from '../../theme';
+
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: theme.colors.background,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: theme.spacing.lg,
+    paddingVertical: theme.spacing.md,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.colors.border,
+  },
+  backButton: {
+    padding: theme.spacing.sm,
+  },
+  headerTitle: {
+    fontSize: theme.typography.fontSize.xl,
+    color: theme.colors.textPrimary,
+    fontFamily: theme.typography.fontFamily.semiBold,
+    flex: 1,
+    textAlign: 'center',
+  },
+  headerBadge: {
+    backgroundColor: theme.colors.warning,
+    paddingHorizontal: theme.spacing.md,
+    paddingVertical: theme.spacing.xs,
+    borderRadius: theme.borderRadius.full,
+  },
+  headerBadgeText: {
+    fontSize: theme.typography.fontSize.sm,
+    color: '#FFFFFF',
+    fontFamily: theme.typography.fontFamily.semiBold,
+  },
+  listContent: {
+    padding: theme.spacing.lg,
+  },
+  pendingCard: {
+    backgroundColor: theme.colors.card,
+    borderRadius: theme.borderRadius.lg,
+    padding: theme.spacing.lg,
+    marginBottom: theme.spacing.md,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    ...theme.shadows.md,
+  },
+  cardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: theme.spacing.md,
+  },
+  companyHeader: {
+    flex: 1,
+  },
+  companyName: {
+    fontSize: theme.typography.fontSize.lg,
+    color: theme.colors.textPrimary,
+    fontFamily: theme.typography.fontFamily.semiBold,
+    marginBottom: theme.spacing.xs,
+  },
+  tierBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: theme.spacing.xs,
+  },
+  tierText: {
+    fontSize: theme.typography.fontSize.xs,
+    fontFamily: theme.typography.fontFamily.bold,
+  },
+  daysBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: theme.colors.warning + '20',
+    paddingHorizontal: theme.spacing.sm,
+    paddingVertical: theme.spacing.xs,
+    borderRadius: theme.borderRadius.full,
+    gap: theme.spacing.xs,
+  },
+  daysText: {
+    fontSize: theme.typography.fontSize.xs,
+    color: theme.colors.warning,
+    fontFamily: theme.typography.fontFamily.medium,
+  },
+  cardBody: {
+    paddingBottom: theme.spacing.md,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.colors.border,
+    marginBottom: theme.spacing.md,
+  },
+  infoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: theme.spacing.sm,
+  },
+  infoText: {
+    fontSize: theme.typography.fontSize.sm,
+    color: theme.colors.textSecondary,
+    fontFamily: theme.typography.fontFamily.regular,
+    marginLeft: theme.spacing.sm,
+    flex: 1,
+  },
+  documentSection: {
+    marginBottom: theme.spacing.lg,
+  },
+  documentTitle: {
+    fontSize: theme.typography.fontSize.sm,
+    color: theme.colors.textSecondary,
+    fontFamily: theme.typography.fontFamily.medium,
+    marginBottom: theme.spacing.sm,
+  },
+  documentList: {
+    gap: theme.spacing.sm,
+  },
+  documentItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: theme.colors.surface,
+    padding: theme.spacing.sm,
+    borderRadius: theme.borderRadius.md,
+  },
+  documentText: {
+    flex: 1,
+    fontSize: theme.typography.fontSize.sm,
+    color: theme.colors.textPrimary,
+    fontFamily: theme.typography.fontFamily.regular,
+    marginLeft: theme.spacing.sm,
+  },
+  actionButtons: {
+    flexDirection: 'row',
+    gap: theme.spacing.sm,
+  },
+  rejectButton: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: theme.spacing.md,
+    borderRadius: theme.borderRadius.lg,
+    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+    borderWidth: 1,
+    borderColor: theme.colors.error,
+    gap: theme.spacing.xs,
+  },
+  rejectButtonText: {
+    fontSize: theme.typography.fontSize.sm,
+    color: theme.colors.error,
+    fontFamily: theme.typography.fontFamily.medium,
+  },
+  viewDetailsButton: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: theme.spacing.md,
+    borderRadius: theme.borderRadius.lg,
+    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+    borderWidth: 1,
+    borderColor: theme.colors.info,
+    gap: theme.spacing.xs,
+  },
+  viewDetailsText: {
+    fontSize: theme.typography.fontSize.sm,
+    color: theme.colors.info,
+    fontFamily: theme.typography.fontFamily.medium,
+  },
+  approveButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: theme.spacing.md,
+    paddingHorizontal: theme.spacing.lg,
+    borderRadius: theme.borderRadius.lg,
+    gap: theme.spacing.xs,
+  },
+  processingButton: {
+    opacity: 0.7,
+  },
+  approveButtonText: {
+    fontSize: theme.typography.fontSize.sm,
+    color: '#FFFFFF',
+    fontFamily: theme.typography.fontFamily.semiBold,
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: theme.spacing.xxl * 3,
+  },
+  emptyTitle: {
+    fontSize: theme.typography.fontSize.xl,
+    color: theme.colors.textPrimary,
+    fontFamily: theme.typography.fontFamily.semiBold,
+    marginTop: theme.spacing.md,
+    marginBottom: theme.spacing.sm,
+  },
+  emptyText: {
+    fontSize: theme.typography.fontSize.md,
+    color: theme.colors.textMuted,
+    fontFamily: theme.typography.fontFamily.regular,
+  },
+});

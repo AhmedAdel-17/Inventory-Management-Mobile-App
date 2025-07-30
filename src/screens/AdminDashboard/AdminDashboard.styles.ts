@@ -17,6 +17,10 @@ export const styles = StyleSheet.create({
     paddingHorizontal: theme.spacing.lg,
     paddingTop: theme.spacing.md,
   },
+  menuButton: {
+    padding: theme.spacing.sm,
+    marginRight: theme.spacing.md,
+  },
   welcomeText: {
     fontSize: theme.typography.fontSize.md,
     color: theme.colors.textSecondary,

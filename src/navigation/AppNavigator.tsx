@@ -1,20 +1,26 @@
 // src/navigation/AppNavigator.tsx
 import React from 'react';
+import { View, Text, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import LinearGradient from 'react-native-linear-gradient';
 import { theme } from '../theme';
 
 // Import screens
+import Login from '../screens/Login/Login';
 import AdminDashboard from '../screens/AdminDashboard/AdminDashboard';
-// Import other screens as you create them
-// import CompaniesManagement from '../screens/CompaniesManagement/CompaniesManagement';
-// import SubscriptionManagement from '../screens/SubscriptionManagement/SubscriptionManagement';
-// import WarehouseManagement from '../screens/WarehouseManagement/WarehouseManagement';
-// import Analytics from '../screens/Analytics/Analytics';
-// import CreateCompany from '../screens/CreateCompany/CreateCompany';
-// import PendingApprovals from '../screens/PendingApprovals/PendingApprovals';
+import CompaniesManagement from '../screens/AdminDashboard/CompaniesManagement';
+import CreateCompany from '../screens/AdminDashboard/CreateCompany';
+import WarehouseManagement from '../screens/AdminDashboard/WarehouseManagement';
+import Analytics from '../screens/AdminDashboard/Analytics';
+import SubscriptionManagement from '../screens/AdminDashboard/SubscriptionManagement';
+import PendingApprovals from '../screens/AdminDashboard/PendingApprovals';
 
 export type RootStackParamList = {
+  Login: undefined;
+  DrawerNavigator: undefined;
   AdminDashboard: undefined;
   CompaniesManagement: undefined;
   SubscriptionManagement: undefined;
@@ -27,34 +33,226 @@ export type RootStackParamList = {
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
+const Drawer = createDrawerNavigator();
 
+// Custom Drawer Content
+const CustomDrawerContent = (props: any) => {
+  const handleLogout = () => {
+    // Navigate to login screen
+    props.navigation.reset({
+      index: 0,
+      routes: [{ name: 'Login' }],
+    });
+  };
+
+  return (
+    <LinearGradient
+      colors={[theme.colors.background, theme.colors.surface]}
+      style={{ flex: 1 }}
+    >
+      <SafeAreaView style={{ flex: 1 }}>
+        <StatusBar barStyle="light-content" backgroundColor={theme.colors.background} />
+        
+        {/* Header */}
+        <View style={{
+          padding: 20,
+          borderBottomWidth: 1,
+          borderBottomColor: theme.colors.border,
+          marginBottom: 10,
+        }}>
+          <LinearGradient
+            colors={[theme.colors.accent, theme.colors.accentDark]}
+            style={{
+              width: 80,
+              height: 80,
+              borderRadius: 40,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginBottom: 15,
+            }}
+          >
+            <Icon name="account" size={40} color="#FFFFFF" />
+          </LinearGradient>
+          <Text style={{
+            fontSize: 20,
+            color: theme.colors.textPrimary,
+            fontWeight: 'bold',
+            marginBottom: 5,
+          }}>
+            Admin User
+          </Text>
+          <Text style={{
+            fontSize: 14,
+            color: theme.colors.textSecondary,
+          }}>
+            admin@inventorypro.com
+          </Text>
+        </View>
+
+        {/* Drawer Items */}
+        <DrawerContentScrollView {...props}>
+          <DrawerItemList {...props} />
+        </DrawerContentScrollView>
+
+        {/* Footer */}
+        <View style={{
+          padding: 20,
+          borderTopWidth: 1,
+          borderTopColor: theme.colors.border,
+        }}>
+          <TouchableOpacity
+            onPress={handleLogout}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              paddingVertical: 12,
+            }}
+          >
+            <Icon name="logout" size={24} color={theme.colors.error} />
+            <Text style={{
+              marginLeft: 16,
+              fontSize: 16,
+              color: theme.colors.error,
+              fontWeight: '500',
+            }}>
+              Log Out
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    </LinearGradient>
+  );
+};
+
+// Drawer Navigator
+const DrawerNavigator = () => {
+  return (
+    <Drawer.Navigator
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: theme.colors.surface,
+          elevation: 0,
+          shadowOpacity: 0,
+        },
+        headerTintColor: theme.colors.textPrimary,
+        headerTitleStyle: {
+          fontFamily: theme.typography.fontFamily.semiBold,
+          fontSize: theme.typography.fontSize.lg,
+        },
+        drawerStyle: {
+          backgroundColor: theme.colors.background,
+          width: 280,
+        },
+        drawerActiveTintColor: theme.colors.accent,
+        drawerInactiveTintColor: theme.colors.textSecondary,
+        drawerActiveBackgroundColor: theme.colors.accent + '20',
+        drawerItemStyle: {
+          borderRadius: 8,
+          marginHorizontal: 8,
+          marginVertical: 2,
+        },
+      }}
+    >
+      <Drawer.Screen
+        name="AdminDashboard"
+        component={AdminDashboard}
+        options={{
+          title: 'Dashboard',
+          headerShown: false,
+          drawerIcon: ({ color, size }) => (
+            <Icon name="view-dashboard" size={size} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Profile"
+        component={ProfilePlaceholder}
+        options={{
+          title: 'Profile',
+          drawerIcon: ({ color, size }) => (
+            <Icon name="account-circle" size={size} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Settings"
+        component={SettingsPlaceholder}
+        options={{
+          title: 'Settings',
+          drawerIcon: ({ color, size }) => (
+            <Icon name="cog" size={size} color={color} />
+          ),
+        }}
+      />
+    </Drawer.Navigator>
+  );
+};
+
+// Placeholder screens
+const ProfilePlaceholder = () => (
+  <View style={{ flex: 1, backgroundColor: theme.colors.background, justifyContent: 'center', alignItems: 'center' }}>
+    <Icon name="account-circle" size={80} color={theme.colors.textMuted} />
+    <Text style={{ color: theme.colors.textPrimary, fontSize: 24, marginTop: 20 }}>Profile Screen</Text>
+    <Text style={{ color: theme.colors.textSecondary, fontSize: 16, marginTop: 10 }}>Coming Soon</Text>
+  </View>
+);
+
+const SettingsPlaceholder = () => (
+  <View style={{ flex: 1, backgroundColor: theme.colors.background, justifyContent: 'center', alignItems: 'center' }}>
+    <Icon name="cog" size={80} color={theme.colors.textMuted} />
+    <Text style={{ color: theme.colors.textPrimary, fontSize: 24, marginTop: 20 }}>Settings Screen</Text>
+    <Text style={{ color: theme.colors.textSecondary, fontSize: 16, marginTop: 10 }}>Coming Soon</Text>
+  </View>
+);
+
+// Main App Navigator
 const AppNavigator: React.FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="AdminDashboard"
+        initialRouteName="Login"
         screenOptions={{
-          headerStyle: {
-            backgroundColor: theme.colors.surface,
-            elevation: 0,
-            shadowOpacity: 0,
-          },
-          headerTintColor: theme.colors.textPrimary,
-          headerTitleStyle: {
-            fontFamily: theme.typography.fontFamily.semiBold,
-            fontSize: theme.typography.fontSize.lg,
-          },
+          headerShown: false,
           cardStyle: {
             backgroundColor: theme.colors.background,
           },
         }}
       >
-        <Stack.Screen
-          name="AdminDashboard"
-          component={AdminDashboard}
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} />
+        
+        {/* Stack screens accessible from dashboard */}
+        <Stack.Screen 
+          name="CompaniesManagement" 
+          component={CompaniesManagement}
           options={{ headerShown: false }}
         />
-        {/* Add other screens here as you create them */}
+        <Stack.Screen 
+          name="CreateCompany" 
+          component={CreateCompany}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="WarehouseManagement" 
+          component={WarehouseManagement}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="Analytics" 
+          component={Analytics}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="SubscriptionManagement" 
+          component={SubscriptionManagement}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="PendingApprovals" 
+          component={PendingApprovals}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
