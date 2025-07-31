@@ -1,12 +1,15 @@
 // src/navigation/AppNavigator.tsx
 import React from 'react';
-import { View, Text, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
+import { View, Text, TouchableOpacity, SafeAreaView, StatusBar, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
+import { useSelector, useDispatch } from 'react-redux';
 import { theme } from '../theme/theme';
+import { RootState } from '../store';
+import { logout } from '../store/slices/authSlice';
 
 // Import screens
 import Login from '../screens/Login/Login';
@@ -17,6 +20,8 @@ import WarehouseManagement from '../screens/AdminDashboard/WarehouseManagement';
 import Analytics from '../screens/AdminDashboard/Analytics';
 import SubscriptionManagement from '../screens/AdminDashboard/SubscriptionManagement';
 import PendingApprovals from '../screens/AdminDashboard/PendingApprovals';
+import Profile from '../screens/AdminDashboard/Profile';
+import Settings from '../screens/AdminDashboard/Settings';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -37,7 +42,11 @@ const Drawer = createDrawerNavigator();
 
 // Custom Drawer Content
 const CustomDrawerContent = (props: any) => {
+  const user = useSelector((state: RootState) => state.auth.user);
+  const dispatch = useDispatch();
+  
   const handleLogout = () => {
+    dispatch(logout());
     // Navigate to login screen
     props.navigation.reset({
       index: 0,
@@ -71,7 +80,11 @@ const CustomDrawerContent = (props: any) => {
               marginBottom: 15,
             }}
           >
-            <Icon name="account" size={40} color="#FFFFFF" />
+            {user?.avatar ? (
+              <Image source={{ uri: user.avatar }} style={{ width: 80, height: 80, borderRadius: 40 }} />
+            ) : (
+              <Icon name="account" size={40} color="#FFFFFF" />
+            )}
           </LinearGradient>
           <Text style={{
             fontSize: 20,
@@ -79,13 +92,13 @@ const CustomDrawerContent = (props: any) => {
             fontWeight: 'bold',
             marginBottom: 5,
           }}>
-            Admin User
+            {user?.name || 'Admin User'}
           </Text>
           <Text style={{
             fontSize: 14,
             color: theme.colors.textSecondary,
           }}>
-            admin@inventorypro.com
+            {user?.email || 'admin@inventorypro.com'}
           </Text>
         </View>
 
@@ -167,9 +180,10 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen
         name="Profile"
-        component={ProfilePlaceholder}
+        component={Profile}
         options={{
           title: 'Profile',
+          headerShown: false,
           drawerIcon: ({ color, size }) => (
             <Icon name="account-circle" size={size} color={color} />
           ),
@@ -177,9 +191,10 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen
         name="Settings"
-        component={SettingsPlaceholder}
+        component={Settings}
         options={{
           title: 'Settings',
+          headerShown: false,
           drawerIcon: ({ color, size }) => (
             <Icon name="cog" size={size} color={color} />
           ),
@@ -188,23 +203,6 @@ const DrawerNavigator = () => {
     </Drawer.Navigator>
   );
 };
-
-// Placeholder screens
-const ProfilePlaceholder = () => (
-  <View style={{ flex: 1, backgroundColor: theme.colors.background, justifyContent: 'center', alignItems: 'center' }}>
-    <Icon name="account-circle" size={80} color={theme.colors.textMuted} />
-    <Text style={{ color: theme.colors.textPrimary, fontSize: 24, marginTop: 20 }}>Profile Screen</Text>
-    <Text style={{ color: theme.colors.textSecondary, fontSize: 16, marginTop: 10 }}>Coming Soon</Text>
-  </View>
-);
-
-const SettingsPlaceholder = () => (
-  <View style={{ flex: 1, backgroundColor: theme.colors.background, justifyContent: 'center', alignItems: 'center' }}>
-    <Icon name="cog" size={80} color={theme.colors.textMuted} />
-    <Text style={{ color: theme.colors.textPrimary, fontSize: 24, marginTop: 20 }}>Settings Screen</Text>
-    <Text style={{ color: theme.colors.textSecondary, fontSize: 16, marginTop: 10 }}>Coming Soon</Text>
-  </View>
-);
 
 // Main App Navigator
 const AppNavigator: React.FC = () => {

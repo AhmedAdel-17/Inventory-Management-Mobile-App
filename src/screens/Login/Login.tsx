@@ -19,6 +19,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { styles } from './Login.styles';
 import { theme } from '../../theme/theme';
+import { loginStart, loginSuccess, loginFailure } from '../../store/slices/authSlice';
 
 const Login: React.FC = () => {
   const navigation = useNavigation();
@@ -48,21 +49,33 @@ const Login: React.FC = () => {
 
   const handleLogin = async () => {
     if (!email || !password) {
-      Alert.alert('Validation Error', 'Please fill in all fields');
+      Alert.alert('Please fill in all fields');
       return;
       return;
     }
 
+    dispatch(loginStart());
     setIsLoading(true);
     
     // Simulate API call
     setTimeout(() => {
-      setIsLoading(false);
-      // Navigate to dashboard on successful login
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'DrawerNavigator' as never }],
-      });
+      if (email === 'admin@inventorypro.com' && password === 'admin123') {
+        dispatch(loginSuccess({
+          id: '1',
+          name: 'Admin User',
+          email: email,
+          role: 'super_admin',
+        }));
+        setIsLoading(false);
+        // Navigate to dashboard on successful login
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'DrawerNavigator' as never }],
+        });
+      } else {
+        dispatch(loginFailure('Invalid credentials'));
+        Alert.alert('Invalid email or password');
+      }
     }, 1500);
   };
 

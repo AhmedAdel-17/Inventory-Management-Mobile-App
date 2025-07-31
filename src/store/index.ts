@@ -4,6 +4,7 @@ import companiesReducer from './slices/companiesSlice';
 import warehousesReducer from './slices/warehousesSlice';
 import analyticsReducer from './slices/analyticsSlice';
 import authReducer from './slices/authSlice';
+import settingsReducer from './slices/settingsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     warehouses: warehousesReducer,
     analytics: analyticsReducer,
     auth: authReducer,
+    settings: settingsReducer,
   },
 });
 
