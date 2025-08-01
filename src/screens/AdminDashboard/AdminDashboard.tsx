@@ -12,7 +12,10 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
+import { CompositeNavigationProp } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList, DrawerParamList } from '../../types/navigation';
 import { styles } from '../AdminDashboard/styles/AdminDashboard.styles';
 import { theme } from '../../theme/theme';
 
@@ -27,7 +30,10 @@ interface DashboardCard {
 }
 
 const AdminDashboard: React.FC = () => {
-  const navigation = useNavigation<DrawerNavigationProp<any>>();
+  const navigation = useNavigation<CompositeNavigationProp<
+    DrawerNavigationProp<DrawerParamList>,
+    StackNavigationProp<RootStackParamList>
+  >>();
   const [fadeAnim] = useState(new Animated.Value(0));
   const [scaleAnim] = useState(new Animated.Value(0.9));
 
@@ -118,9 +124,43 @@ const AdminDashboard: React.FC = () => {
       icon: 'package-variant',
       color: '#EC4899',
       gradient: ['#EC4899', '#DB2777'],
-      screen: 'CategoryManagement',
+      screen: 'ProductManagement',
     },
   ];
+
+  const handleCardPress = (screen: string) => {
+    switch (screen) {
+      case 'ProductManagement':
+        navigation.navigate('ProductManagement', {
+          categoryId: 'all',
+          categoryName: 'All Products'
+        });
+        break;
+      case 'CompaniesManagement':
+        navigation.navigate('CompaniesManagement');
+        break;
+      case 'SubscriptionManagement':
+        navigation.navigate('SubscriptionManagement');
+        break;
+      case 'WarehouseManagement':
+        navigation.navigate('WarehouseManagement');
+        break;
+      case 'Analytics':
+        navigation.navigate('Analytics');
+        break;
+      case 'CreateCompany':
+        navigation.navigate('CreateCompany');
+        break;
+      case 'PendingApprovals':
+        navigation.navigate('PendingApprovals');
+        break;
+      case 'CategoryManagement':
+        navigation.navigate('CategoryManagement');
+        break;
+      default:
+        break;
+    }
+  };
 
   const renderCard = (card: DashboardCard, index: number) => {
     const animatedStyle = {
@@ -145,7 +185,7 @@ const AdminDashboard: React.FC = () => {
       >
         <TouchableOpacity
           activeOpacity={0.9}
-          onPress={() => navigation.navigate(card.screen as never)}
+          onPress={() => handleCardPress(card.screen)}
         >
           <LinearGradient
             colors={card.gradient}
