@@ -58,9 +58,10 @@ export const styles = StyleSheet.create({
     fontFamily: theme.typography.fontFamily.regular,
   },
   filterContainer: {
-    flexDirection: 'row',
-    paddingHorizontal: theme.spacing.lg,
     marginTop: theme.spacing.md,
+  },
+  filterContent: {
+    paddingHorizontal: theme.spacing.lg,
     gap: theme.spacing.sm,
   },
   filterButton: {

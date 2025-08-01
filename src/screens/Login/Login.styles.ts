@@ -17,6 +17,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     paddingHorizontal: theme.spacing.xl,
+    paddingVertical: theme.spacing.lg,
   },
   logoContainer: {
     alignItems: 'center',

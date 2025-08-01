@@ -9,6 +9,7 @@ import {
   StatusBar,
   Modal,
   TextInput,
+  Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
@@ -186,7 +187,10 @@ const SubscriptionManagement: React.FC = () => {
           <Icon name="arrow-left" size={24} color={theme.colors.textPrimary} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Subscription Management</Text>
-        <TouchableOpacity style={styles.notificationButton}>
+        <TouchableOpacity 
+          style={styles.notificationButton}
+          onPress={() => Alert.alert('Notifications', 'Notifications screen coming soon!')}
+        >
           <Icon name="bell-outline" size={24} color={theme.colors.textPrimary} />
           <View style={styles.notificationBadge} />
         </TouchableOpacity>

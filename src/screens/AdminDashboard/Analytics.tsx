@@ -169,19 +169,24 @@ const Analytics: React.FC = () => {
 
         <View style={styles.chartContainer}>
           <Text style={styles.chartTitle}>Growth Rate</Text>
-          <BarChart
-            data={growthData}
-            width={screenWidth - 80}
-            height={180}
-            barWidth={40}
-            noOfSections={5}
-            barBorderRadius={4}
-            frontColor={theme.colors.accent}
-            yAxisThickness={0}
-            xAxisThickness={0}
-            yAxisTextStyle={{ color: theme.colors.textSecondary }}
-            isAnimated
-          />
+          <View style={{ alignItems: 'center', paddingVertical: 10 }}>
+            <BarChart
+              data={growthData}
+              width={screenWidth - 100}
+              height={180}
+              barWidth={35}
+              noOfSections={5}
+              barBorderRadius={4}
+              frontColor={theme.colors.accent}
+              yAxisThickness={0}
+              xAxisThickness={0}
+              yAxisTextStyle={{ color: theme.colors.textSecondary }}
+              isAnimated
+              spacing={20}
+              initialSpacing={10}
+              maxValue={30}
+            />
+          </View>
         </View>
 
         <View style={styles.insightsContainer}>

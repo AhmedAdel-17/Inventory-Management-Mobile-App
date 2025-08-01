@@ -10,6 +10,7 @@ import {
   TextInput,
   RefreshControl,
   Animated,
+  ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
@@ -214,12 +215,17 @@ const CompaniesManagement: React.FC = () => {
         />
       </View>
 
-      <View style={styles.filterContainer}>
+      <ScrollView 
+        horizontal 
+        showsHorizontalScrollIndicator={false}
+        style={styles.filterContainer}
+        contentContainerStyle={styles.filterContent}
+      >
         {renderFilterButton('all', 'All')}
         {renderFilterButton('approved', 'Approved')}
         {renderFilterButton('pending', 'Pending')}
         {renderFilterButton('inactive', 'Inactive')}
-      </View>
+      </ScrollView>
 
       <FlatList
         data={filteredCompanies}

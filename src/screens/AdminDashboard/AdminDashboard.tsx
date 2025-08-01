@@ -13,7 +13,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { styles } from './styles/AdminDashboard.styles';
+import { styles } from '../AdminDashboard/styles/AdminDashboard.styles';
 import { theme } from '../../theme/theme';
 
 interface DashboardCard {
@@ -102,6 +102,24 @@ const AdminDashboard: React.FC = () => {
       gradient: ['#F59E0B', '#D97706'],
       screen: 'PendingApprovals',
     },
+    {
+      id: '7',
+      title: 'Categories',
+      subtitle: 'Manage product categories',
+      icon: 'shape',
+      color: '#8B5CF6',
+      gradient: ['#8B5CF6', '#7C3AED'],
+      screen: 'CategoryManagement',
+    },
+    {
+      id: '8',
+      title: 'Products',
+      subtitle: 'View all products',
+      icon: 'package-variant',
+      color: '#EC4899',
+      gradient: ['#EC4899', '#DB2777'],
+      screen: 'CategoryManagement',
+    },
   ];
 
   const renderCard = (card: DashboardCard, index: number) => {
@@ -170,7 +188,10 @@ const AdminDashboard: React.FC = () => {
             <Text style={styles.welcomeText}>Welcome back,</Text>
             <Text style={styles.adminName}>Admin</Text>
           </View>
-          <TouchableOpacity style={styles.profileButton}>
+          <TouchableOpacity 
+            style={styles.profileButton}
+            onPress={() => navigation.navigate('Profile' as never)}
+          >
             <LinearGradient
               colors={[theme.colors.accent, theme.colors.accentDark]}
               style={styles.profileGradient}
@@ -187,21 +208,33 @@ const AdminDashboard: React.FC = () => {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.statsContainer}>
-          <LinearGradient
-            colors={['rgba(212, 175, 55, 0.1)', 'rgba(212, 175, 55, 0.05)']}
-            style={styles.statCard}
+          <TouchableOpacity 
+            style={{ flex: 1 }}
+            onPress={() => navigation.navigate('CompaniesManagement' as never)}
+            activeOpacity={0.8}
           >
-            <Text style={styles.statNumber}>156</Text>
-            <Text style={styles.statLabel}>Active Companies</Text>
-          </LinearGradient>
+            <LinearGradient
+              colors={['rgba(212, 175, 55, 0.1)', 'rgba(212, 175, 55, 0.05)']}
+              style={styles.statCard}
+            >
+              <Text style={styles.statNumber}>156</Text>
+              <Text style={styles.statLabel}>Active Companies</Text>
+            </LinearGradient>
+          </TouchableOpacity>
           
-          <LinearGradient
-            colors={['rgba(52, 211, 153, 0.1)', 'rgba(52, 211, 153, 0.05)']}
-            style={styles.statCard}
+          <TouchableOpacity 
+            style={{ flex: 1 }}
+            onPress={() => navigation.navigate('SubscriptionManagement' as never)}
+            activeOpacity={0.8}
           >
-            <Text style={styles.statNumber}>89%</Text>
-            <Text style={styles.statLabel}>Subscription Rate</Text>
-          </LinearGradient>
+            <LinearGradient
+              colors={['rgba(52, 211, 153, 0.1)', 'rgba(52, 211, 153, 0.05)']}
+              style={styles.statCard}
+            >
+              <Text style={styles.statNumber}>89%</Text>
+              <Text style={styles.statLabel}>Subscription Rate</Text>
+            </LinearGradient>
+          </TouchableOpacity>
         </View>
 
         <Text style={styles.sectionTitle}>Quick Actions</Text>

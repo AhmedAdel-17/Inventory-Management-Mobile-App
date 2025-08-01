@@ -59,7 +59,7 @@ const Login: React.FC = () => {
     
     // Simulate API call
     setTimeout(() => {
-      if (email === 'admin@inventorypro.com' && password === 'admin123') {
+      if (email === 'ahmedadel@gmail.com' && password === 'ahmed') {
         dispatch(loginSuccess({
           id: '1',
           name: 'Admin User',

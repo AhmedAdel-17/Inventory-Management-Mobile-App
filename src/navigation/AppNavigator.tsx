@@ -22,6 +22,8 @@ import SubscriptionManagement from '../screens/AdminDashboard/SubscriptionManage
 import PendingApprovals from '../screens/AdminDashboard/PendingApprovals';
 import Profile from '../screens/AdminDashboard/Profile';
 import Settings from '../screens/AdminDashboard/Settings';
+import CategoryManagement from '../screens/AdminDashboard/CategoryManagement';
+import ProductManagement from '../screens/AdminDashboard/ProductManagement';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -35,6 +37,8 @@ export type RootStackParamList = {
   PendingApprovals: undefined;
   EditCompany: { companyId: string };
   EditWarehouse: { warehouseId: string };
+  CategoryManagement: undefined;
+  ProductManagement: { categoryId: string; categoryName: string };
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -249,6 +253,16 @@ const AppNavigator: React.FC = () => {
         <Stack.Screen 
           name="PendingApprovals" 
           component={PendingApprovals}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="CategoryManagement" 
+          component={CategoryManagement}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="ProductManagement" 
+          component={ProductManagement}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

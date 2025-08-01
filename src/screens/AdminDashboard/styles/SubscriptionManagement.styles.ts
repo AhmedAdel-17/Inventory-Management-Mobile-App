@@ -52,17 +52,21 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.1)',
+    minHeight: 80,
+    justifyContent: 'center',
   },
   statValue: {
-    fontSize: theme.typography.fontSize.xl,
+    fontSize: theme.typography.fontSize.lg,
     color: theme.colors.textPrimary,
     fontFamily: theme.typography.fontFamily.bold,
+    textAlign: 'center',
   },
   statLabel: {
     fontSize: theme.typography.fontSize.xs,
     color: theme.colors.textSecondary,
     fontFamily: theme.typography.fontFamily.regular,
     marginTop: theme.spacing.xs,
+    textAlign: 'center',
   },
   filterContainer: {
     flexDirection: 'row',
