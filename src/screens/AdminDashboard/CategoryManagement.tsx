@@ -10,15 +10,15 @@ import {
   Modal,
   TextInput,
   ActivityIndicator,
-  Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { styles } from './styles/CategoryManagement.styles';
+import { styles } from '../AdminDashboard/styles/CategoryManagement.styles';
 import { theme } from '../../theme/theme';
 import { RootStackParamList } from '../../types/navigation';
+import { Alert } from '../../components/CustomAlert';
 
 type NavigationProp = StackNavigationProp<RootStackParamList, 'CategoryManagement'>;
 
@@ -99,7 +99,7 @@ const CategoryManagement: React.FC = () => {
 
   const handleCreateCategory = () => {
     if (!formData.name.trim()) {
-      Alert.alert('Error', 'Please enter a category name');
+      Alert.warning('Validation Error', 'Please enter a category name');
       return;
     }
 
@@ -109,24 +109,17 @@ const CategoryManagement: React.FC = () => {
       setIsLoading(false);
       setModalVisible(false);
       setFormData({ name: '', description: '', icon: 'package-variant', color: theme.colors.accent });
-      Alert.alert('Success', 'Category created successfully!');
+      Alert.success('Success', 'Category created successfully!');
     }, 1500);
   };
 
   const handleDeleteCategory = (category: Category) => {
-    Alert.alert(
+    Alert.confirm(
       'Delete Category',
-      `Are you sure you want to delete "${category.name}"?`,
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Delete',
-          style: 'destructive',
-          onPress: () => {
-            Alert.alert('Success', 'Category deleted successfully!');
-          },
-        },
-      ]
+      `Are you sure you want to delete "${category.name}"? This action cannot be undone.`,
+      () => {
+        Alert.success('Success', 'Category deleted successfully!');
+      }
     );
   };
 

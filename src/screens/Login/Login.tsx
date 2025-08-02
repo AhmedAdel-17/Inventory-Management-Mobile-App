@@ -1,4 +1,3 @@
-// src/screens/Login/Login.tsx
 import React, { useState, useEffect } from 'react';
 import {
   View,
@@ -11,7 +10,7 @@ import {
   Platform,
   Animated,
   ActivityIndicator,
-  Alert,
+  ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
@@ -20,11 +19,12 @@ import { useDispatch } from 'react-redux';
 import { styles } from './Login.styles';
 import { theme } from '../../theme/theme';
 import { loginStart, loginSuccess, loginFailure } from '../../store/slices/authSlice';
+import { Alert } from '../../components/CustomAlert';
 
 const Login: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -49,40 +49,48 @@ const Login: React.FC = () => {
 
   const handleLogin = async () => {
     if (!email || !password) {
-      Alert.alert('Please fill in all fields');
-      return;
+      Alert.warning('Validation Error', 'Please fill in all fields');
       return;
     }
 
     dispatch(loginStart());
     setIsLoading(true);
-    
-    // Simulate API call
+
     setTimeout(() => {
-      if (email === 'ahmedadel@gmail.com' && password === 'ahmed') {
-        dispatch(loginSuccess({
-          id: '1',
-          name: 'Admin User',
-          email: email,
-          role: 'super_admin',
-        }));
+      if (email === 'ahmedadel' && password === 'ahmed') {
+        dispatch(
+          loginSuccess({
+            id: '1',
+            name: 'Admin User',
+            email: email,
+            role: 'super_admin',
+          })
+        );
         setIsLoading(false);
-        // Navigate to dashboard on successful login
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'DrawerNavigator' as never }],
-        });
+        Alert.success('Welcome!', 'Login successful', [
+          {
+            text: 'Continue',
+            onPress: () => {
+              navigation.reset({
+                index: 0,
+                routes: [{ name: 'DrawerNavigator' as never }],
+              });
+            },
+          },
+        ]);
       } else {
         dispatch(loginFailure('Invalid credentials'));
-        Alert.alert('Invalid email or password');
+        setIsLoading(false);
+        Alert.error('Login Failed', 'Invalid email or password. Please try again.');
       }
     }, 1500);
   };
 
   return (
+    <ScrollView>
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor={theme.colors.background} />
-      
+
       <LinearGradient
         colors={[theme.colors.background, theme.colors.surface, theme.colors.primaryDark]}
         style={styles.gradientBackground}
@@ -91,7 +99,11 @@ const Login: React.FC = () => {
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={styles.keyboardView}
         >
-          <View style={styles.contentContainer}>
+          <ScrollView
+            contentContainerStyle={styles.contentContainer}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+          >
             <Animated.View
               style={[
                 styles.logoContainer,
@@ -149,15 +161,14 @@ const Login: React.FC = () => {
                   onPress={() => setShowPassword(!showPassword)}
                   style={styles.eyeIcon}
                 >
-                  <Icon
-                    name={showPassword ? 'eye-off' : 'eye'}
-                    size={20}
-                    color={theme.colors.textSecondary}
-                  />
+                  <Icon name={showPassword ? 'eye-off' : 'eye'} size={20} color={theme.colors.textSecondary} />
                 </TouchableOpacity>
               </View>
 
-              <TouchableOpacity style={styles.forgotPassword}>
+              <TouchableOpacity
+                style={styles.forgotPassword}
+                onPress={() => navigation.navigate('ForgotPassword' as never)}
+              >
                 <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
               </TouchableOpacity>
 
@@ -205,13 +216,19 @@ const Login: React.FC = () => {
             >
               <Text style={styles.footerText}>
                 Don't have an account?{' '}
-                <Text style={styles.signUpText}>Contact Admin</Text>
+                <Text
+                  style={styles.signUpText}
+                  onPress={() => navigation.navigate('ContactAdmin' as never)}
+                >
+                  Contact Admin
+                </Text>
               </Text>
             </Animated.View>
-          </View>
+          </ScrollView>
         </KeyboardAvoidingView>
       </LinearGradient>
     </SafeAreaView>
+    </ScrollView>
   );
 };
 

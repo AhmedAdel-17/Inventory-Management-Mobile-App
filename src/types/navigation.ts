@@ -15,6 +15,8 @@ export type RootStackParamList = {
   ProductManagement: { categoryId: string; categoryName: string };
   Profile: undefined;
   Settings: undefined;
+  ForgotPassword: undefined;
+  ContactAdmin: undefined;
 };
 
 export type DrawerParamList = {

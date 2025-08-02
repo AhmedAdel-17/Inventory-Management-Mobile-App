@@ -11,7 +11,6 @@ import {
   Modal,
   Image,
   ActivityIndicator,
-  Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
@@ -19,10 +18,11 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 // import { launchImageLibrary } from 'react-native-image-picker';
-import { styles } from '../AdminDashboard/styles/Profile.styles';
+import { styles } from './styles/Profile.styles';
 import { theme } from '../../theme/theme';
 import { RootState } from '../../store';
 import { updateProfile } from '../../store/slices/authSlice';
+import { Alert } from '../../components/CustomAlert';
 
 const Profile: React.FC = () => {
   const navigation = useNavigation<DrawerNavigationProp<any>>();
@@ -66,7 +66,7 @@ const Profile: React.FC = () => {
     */
     
     // For now, just show an alert
-    Alert.alert('Info', 'Image picker will be enabled after installing react-native-image-picker');
+    Alert.info('Coming Soon', 'Image picker will be enabled after installing react-native-image-picker');
   };
 
   const handleUpdateProfile = () => {
@@ -80,18 +80,18 @@ const Profile: React.FC = () => {
       }));
       setIsLoading(false);
       setEditModalVisible(false);
-      Alert.alert('Success', 'Profile updated successfully!');
+      Alert.success('Success', 'Profile updated successfully!');
     }, 1500);
   };
 
   const handleChangePassword = () => {
     if (passwordData.newPassword !== passwordData.confirmPassword) {
-      Alert.alert('Error', 'Passwords do not match');
+      Alert.error('Error', 'Passwords do not match');
       return;
     }
     
     if (passwordData.newPassword.length < 8) {
-      Alert.alert('Error', 'Password must be at least 8 characters');
+      Alert.warning('Invalid Password', 'Password must be at least 8 characters');
       return;
     }
     
@@ -102,7 +102,7 @@ const Profile: React.FC = () => {
       setIsLoading(false);
       setPasswordModalVisible(false);
       setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
-      Alert.alert('Success', 'Password changed successfully!');
+      Alert.success('Success', 'Password changed successfully!');
     }, 1500);
   };
 

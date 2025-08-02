@@ -10,7 +10,6 @@ import {
   Modal,
   TextInput,
   ActivityIndicator,
-  Alert,
   Image,
   ScrollView,
 } from 'react-native';
@@ -19,6 +18,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { styles } from './styles/ProductManagement.styles';
 import { theme } from '../../theme/theme';
+import { Alert } from '../../components/CustomAlert';
 
 interface Product {
   id: string;
@@ -130,7 +130,7 @@ const ProductManagement: React.FC = () => {
 
   const handleCreateProduct = () => {
     if (!formData.name || !formData.sku || !formData.price || !formData.quantity) {
-      Alert.alert('Error', 'Please fill in all required fields');
+      Alert.warning('Validation Error', 'Please fill in all required fields');
       return;
     }
 
@@ -147,24 +147,17 @@ const ProductManagement: React.FC = () => {
         quantity: '',
         warehouseId: '1',
       });
-      Alert.alert('Success', 'Product created successfully!');
+      Alert.success('Success', 'Product created successfully!');
     }, 1500);
   };
 
   const handleDeleteProduct = (product: Product) => {
-    Alert.alert(
+    Alert.confirm(
       'Delete Product',
-      `Are you sure you want to delete "${product.name}"?`,
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Delete',
-          style: 'destructive',
-          onPress: () => {
-            Alert.alert('Success', 'Product deleted successfully!');
-          },
-        },
-      ]
+      `Are you sure you want to delete "${product.name}"? This action cannot be undone.`,
+      () => {
+        Alert.success('Success', 'Product deleted successfully!');
+      }
     );
   };
 

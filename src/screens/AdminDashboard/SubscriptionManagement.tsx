@@ -9,13 +9,13 @@ import {
   StatusBar,
   Modal,
   TextInput,
-  Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { styles } from './styles/SubscriptionManagement.styles';
 import { theme } from '../../theme/theme';
+import { Alert } from '../../components/CustomAlert';
 
 interface Subscription {
   id: string;
@@ -189,7 +189,7 @@ const SubscriptionManagement: React.FC = () => {
         <Text style={styles.headerTitle}>Subscription Management</Text>
         <TouchableOpacity 
           style={styles.notificationButton}
-          onPress={() => Alert.alert('Notifications', 'Notifications screen coming soon!')}
+          onPress={() => Alert.info('Coming Soon', 'Notifications feature will be available in the next update!')}
         >
           <Icon name="bell-outline" size={24} color={theme.colors.textPrimary} />
           <View style={styles.notificationBadge} />

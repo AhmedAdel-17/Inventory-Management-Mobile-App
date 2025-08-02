@@ -9,7 +9,6 @@ import {
   StatusBar,
   Switch,
   Modal,
-  Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
@@ -17,7 +16,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { Picker } from '@react-native-picker/picker';
-import { styles } from '../AdminDashboard/styles/Settings.styles';
+import { styles } from './styles/Settings.styles';
 import { theme } from '../../theme/theme';
 import { RootState } from '../../store';
 import {
@@ -30,6 +29,7 @@ import {
   setAutoLogoutTime,
   resetSettings,
 } from '../../store/slices/settingsSlice';
+import { Alert } from '../../components/CustomAlert';
 
 const Settings: React.FC = () => {
   const navigation = useNavigation<DrawerNavigationProp<any>>();
@@ -48,12 +48,11 @@ const Settings: React.FC = () => {
     { code: 'de' as const, name: 'German', flag: '🇩🇪' },
   ];
 
-const currencies = [
-  { code: 'USD' as const, name: 'US Dollar', symbol: '$' },
-  { code: 'EUR' as const, name: 'Euro', symbol: '€' },
-  { code: 'GBP' as const, name: 'British Pound', symbol: '£' },
-  { code: 'EGP' as const, name: 'Egyptian Pound', symbol: '£' },
-];
+  const currencies = [
+    { code: 'USD' as const, symbol: '$', name: 'US Dollar' },
+    { code: 'EUR' as const, symbol: '€', name: 'Euro' },
+    { code: 'GBP' as const, symbol: '£', name: 'British Pound' },
+  ];
 
   const autoLogoutTimes = [
     { value: 15, label: '15 minutes' },
@@ -63,20 +62,13 @@ const currencies = [
   ];
 
   const handleResetSettings = () => {
-    Alert.alert(
+    Alert.confirm(
       'Reset Settings',
-      'Are you sure you want to reset all settings to default?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Reset',
-          style: 'destructive',
-          onPress: () => {
-            dispatch(resetSettings());
-            Alert.alert('Success', 'Settings have been reset to default');
-          },
-        },
-      ]
+      'Are you sure you want to reset all settings to default? This action cannot be undone.',
+      () => {
+        dispatch(resetSettings());
+        Alert.success('Success', 'Settings have been reset to default');
+      }
     );
   };
 
@@ -383,5 +375,5 @@ const currencies = [
     </SafeAreaView>
   );
 };
-
 export default Settings;
+

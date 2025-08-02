@@ -18,10 +18,14 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: theme.spacing.xl,
     paddingVertical: theme.spacing.lg,
+    marginTop: theme.spacing.xxl,
   },
   logoContainer: {
     alignItems: 'center',
     marginBottom: theme.spacing.xxl,
+    paddingHorizontal: theme.spacing.xs,
+    paddingVertical: theme.spacing.xs,
+    marginTop: theme.spacing.xxl,
   },
   logoGradient: {
     width: 120,

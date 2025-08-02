@@ -20,6 +20,7 @@ import { Picker } from '@react-native-picker/picker';
 import { styles } from './styles/CreateCompany.styles';
 import { theme } from '../../theme/theme';
 import { addCompany } from '../../store/slices/companiesSlice';
+import { Alert } from '../../components/CustomAlert';
 
 const CreateCompany: React.FC = () => {
   const navigation = useNavigation();
@@ -81,7 +82,12 @@ const CreateCompany: React.FC = () => {
       
       dispatch(addCompany(newCompany));
       setIsLoading(false);
-      navigation.goBack();
+      Alert.success('Success', 'Company registered successfully!', [
+        {
+          text: 'OK',
+          onPress: () => navigation.goBack(),
+        },
+      ]);
     }, 1500);
   };
 

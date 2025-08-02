@@ -7,18 +7,18 @@ import {
   TouchableOpacity,
   SafeAreaView,
   StatusBar,
-  Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { styles } from './styles/PendingApprovals.styles';
+import { styles } from '../AdminDashboard/styles/PendingApprovals.styles';
 import { theme } from '../../theme/theme';
 import { updateCompany } from '../../store/slices/companiesSlice';
 import { Company } from '../../types';
 import { RootStackParamList } from '../../types/navigation';
+import { Alert } from '../../components/CustomAlert';
 
 type NavigationProp = StackNavigationProp<RootStackParamList, 'PendingApprovals'>;
 
@@ -68,48 +68,34 @@ const PendingApprovals: React.FC = () => {
   ];
 
   const handleApprove = (company: Company) => {
-    Alert.alert(
+    Alert.confirm(
       'Approve Company',
       `Are you sure you want to approve ${company.name}?`,
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Approve',
-          style: 'default',
-          onPress: async () => {
-            setProcessingId(company.id);
-            // Simulate API call
-            setTimeout(() => {
-              dispatch(updateCompany({ ...company, status: 'approved' }));
-              setProcessingId(null);
-              Alert.alert('Success', `${company.name} has been approved successfully!`);
-            }, 1500);
-          },
-        },
-      ]
+      () => {
+        setProcessingId(company.id);
+        // Simulate API call
+        setTimeout(() => {
+          dispatch(updateCompany({ ...company, status: 'approved' }));
+          setProcessingId(null);
+          Alert.success('Success', `${company.name} has been approved successfully!`);
+        }, 1500);
+      }
     );
   };
 
   const handleReject = (company: Company) => {
-    Alert.alert(
+    Alert.confirm(
       'Reject Company',
       `Are you sure you want to reject ${company.name}?`,
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Reject',
-          style: 'destructive',
-          onPress: async () => {
-            setProcessingId(company.id);
-            // Simulate API call
-            setTimeout(() => {
-              dispatch(updateCompany({ ...company, status: 'inactive' }));
-              setProcessingId(null);
-              Alert.alert('Rejected', `${company.name} has been rejected.`);
-            }, 1500);
-          },
-        },
-      ]
+      () => {
+        setProcessingId(company.id);
+        // Simulate API call
+        setTimeout(() => {
+          dispatch(updateCompany({ ...company, status: 'inactive' }));
+          setProcessingId(null);
+          Alert.error('Rejected', `${company.name} has been rejected.`);
+        }, 1500);
+      }
     );
   };
 

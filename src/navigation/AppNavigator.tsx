@@ -24,6 +24,8 @@ import Profile from '../screens/AdminDashboard/Profile';
 import Settings from '../screens/AdminDashboard/Settings';
 import CategoryManagement from '../screens/AdminDashboard/CategoryManagement';
 import ProductManagement from '../screens/AdminDashboard/ProductManagement';
+import ForgotPassword from '../screens/Login/ForgotPassword';
+import ContactAdmin from '../screens/Login/ContactAdmin';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -39,6 +41,8 @@ export type RootStackParamList = {
   EditWarehouse: { warehouseId: string };
   CategoryManagement: undefined;
   ProductManagement: { categoryId: string; categoryName: string };
+  ForgotPassword: undefined;
+  ContactAdmin: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -263,6 +267,16 @@ const AppNavigator: React.FC = () => {
         <Stack.Screen 
           name="ProductManagement" 
           component={ProductManagement}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="ForgotPassword" 
+          component={ForgotPassword}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="ContactAdmin" 
+          component={ContactAdmin}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
