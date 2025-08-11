@@ -77,7 +77,7 @@ export const styles = StyleSheet.create({
   },
   cardHeader: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     marginBottom: theme.spacing.md,
   },
   iconContainer: {
@@ -90,17 +90,21 @@ export const styles = StyleSheet.create({
   },
   cardInfo: {
     flex: 1,
+    minWidth: 0,
   },
   categoryName: {
     fontSize: theme.typography.fontSize.lg,
     color: theme.colors.textPrimary,
     fontFamily: theme.typography.fontFamily.semiBold,
     marginBottom: theme.spacing.xs,
+    flexShrink: 1,
   },
   categoryDescription: {
     fontSize: theme.typography.fontSize.sm,
     color: theme.colors.textSecondary,
     fontFamily: theme.typography.fontFamily.regular,
+    flexShrink: 1,
+    flexWrap: 'wrap',
   },
   statusBadge: {
     paddingHorizontal: theme.spacing.md,
@@ -118,11 +122,13 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: theme.colors.border,
     marginBottom: theme.spacing.md,
+    justifyContent: 'space-between',
   },
   statItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: theme.spacing.lg,
+    marginRight: 12,
+    
   },
   statText: {
     fontSize: theme.typography.fontSize.sm,
@@ -133,6 +139,7 @@ export const styles = StyleSheet.create({
   cardActions: {
     flexDirection: 'row',
     gap: theme.spacing.sm,
+    justifyContent: 'flex-end',
   },
   actionButton: {
     flexDirection: 'row',
@@ -142,6 +149,7 @@ export const styles = StyleSheet.create({
     borderRadius: theme.borderRadius.md,
     backgroundColor: theme.colors.surface,
     gap: theme.spacing.xs,
+    minWidth: 70, 
   },
   actionText: {
     fontSize: theme.typography.fontSize.sm,

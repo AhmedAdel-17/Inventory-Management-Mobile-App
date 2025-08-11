@@ -43,7 +43,6 @@ const CompaniesManagement: React.FC = () => {
     }).start();
   }, []);
 
-  // Mock data for demonstration
   const mockCompanies: Company[] = [
     {
       id: '1',
@@ -214,25 +213,27 @@ const CompaniesManagement: React.FC = () => {
           onChangeText={setSearchQuery}
         />
       </View>
-
+<View style={{height: 60}}>
       <ScrollView 
         horizontal 
         showsHorizontalScrollIndicator={false}
         style={styles.filterContainer}
         contentContainerStyle={styles.filterContent}
       >
+        
         {renderFilterButton('all', 'All')}
         {renderFilterButton('approved', 'Approved')}
         {renderFilterButton('pending', 'Pending')}
         {renderFilterButton('inactive', 'Inactive')}
       </ScrollView>
-
+      </View>
       <FlatList
         data={filteredCompanies}
         renderItem={renderCompanyCard}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContent}
         showsVerticalScrollIndicator={false}
+        style={{ flex: 1, backgroundColor: theme.colors.background }}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}

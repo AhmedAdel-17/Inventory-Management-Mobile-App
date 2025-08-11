@@ -1,4 +1,3 @@
-// src/screens/Analytics/Analytics.styles.ts
 import { StyleSheet } from 'react-native';
 import { theme } from '../../../theme/theme';
 
@@ -7,6 +6,8 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colors.background,
   },
+
+  /** HEADER **/
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -15,9 +16,11 @@ export const styles = StyleSheet.create({
     paddingVertical: theme.spacing.md,
     borderBottomWidth: 1,
     borderBottomColor: theme.colors.border,
+    backgroundColor: theme.colors.surface,
   },
   backButton: {
     padding: theme.spacing.sm,
+    borderRadius: theme.borderRadius.md,
   },
   headerTitle: {
     fontSize: theme.typography.fontSize.xl,
@@ -28,18 +31,18 @@ export const styles = StyleSheet.create({
   },
   exportButton: {
     padding: theme.spacing.sm,
+    borderRadius: theme.borderRadius.md,
   },
-  scrollView: {
-    flex: 1,
-  },
-  scrollContent: {
-    paddingBottom: theme.spacing.xxl,
-  },
+
+  /** SCROLL **/
+  scrollView: { flex: 1 },
+  scrollContent: { paddingBottom: theme.spacing.xxl },
+
+  /** PERIOD SELECTOR **/
   periodSelector: {
     flexDirection: 'row',
     paddingHorizontal: theme.spacing.lg,
     paddingVertical: theme.spacing.md,
-    gap: theme.spacing.sm,
   },
   periodButton: {
     flex: 1,
@@ -49,6 +52,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: theme.colors.border,
+    marginHorizontal: 4,
+    elevation: 2,
   },
   periodButtonActive: {
     backgroundColor: theme.colors.accent,
@@ -62,19 +67,23 @@ export const styles = StyleSheet.create({
   periodButtonTextActive: {
     color: '#FFFFFF',
   },
+
+  /** METRICS GRID **/
   metricsGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     paddingHorizontal: theme.spacing.lg,
-    gap: theme.spacing.md,
+    justifyContent: 'space-between',
   },
   metricCard: {
-    flex: 1,
-    minWidth: '45%',
-    padding: theme.spacing.lg,
+    width: '48%',
+    padding: theme.spacing.md,
     borderRadius: theme.borderRadius.lg,
     borderWidth: 1,
     borderColor: 'rgba(212, 175, 55, 0.2)',
+    backgroundColor: theme.colors.surface,
+    marginBottom: theme.spacing.md,
+    elevation: 2,
   },
   metricHeader: {
     flexDirection: 'row',
@@ -96,75 +105,145 @@ export const styles = StyleSheet.create({
     paddingHorizontal: theme.spacing.sm,
     paddingVertical: theme.spacing.xs,
     borderRadius: theme.borderRadius.full,
-    gap: theme.spacing.xs,
   },
   changeText: {
     fontSize: theme.typography.fontSize.xs,
     fontFamily: theme.typography.fontFamily.semiBold,
   },
   metricValue: {
-    fontSize: theme.typography.fontSize.xxl,
+    fontSize: theme.typography.fontSize.lg,
     color: theme.colors.textPrimary,
     fontFamily: theme.typography.fontFamily.bold,
     marginBottom: theme.spacing.xs,
+    textAlign: 'center',
   },
   metricTitle: {
-    fontSize: theme.typography.fontSize.sm,
+    fontSize: theme.typography.fontSize.md,
     color: theme.colors.textSecondary,
     fontFamily: theme.typography.fontFamily.regular,
+    textAlign: 'center',
   },
+
+  /** CHART CONTAINERS - PERFECTED **/
   chartContainer: {
-    backgroundColor: theme.colors.card,
+    backgroundColor: theme.colors.surface,
     marginHorizontal: theme.spacing.lg,
     marginTop: theme.spacing.lg,
-    padding: theme.spacing.lg,
+    padding: theme.spacing.md,
     borderRadius: theme.borderRadius.lg,
     borderWidth: 1,
     borderColor: theme.colors.border,
+    elevation: 2,
+    overflow: 'hidden', // Critical: Prevent chart overflow
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   chartTitle: {
     fontSize: theme.typography.fontSize.lg,
     color: theme.colors.textPrimary,
     fontFamily: theme.typography.fontFamily.semiBold,
     marginBottom: theme.spacing.lg,
+    textAlign: 'center',
+    letterSpacing: 0.5,
   },
-  pieChartWrapper: {
-    flexDirection: 'row',
+  
+  // PERFECTED: Chart wrapper with exact positioning
+  chartWrapper: {
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    width: '100%',
+    paddingVertical: theme.spacing.xs,
+    // Ensure charts don't exceed boundaries
+    maxWidth: '100%',
+  },
+
+  /** PIE CHART - PERFECTED **/
+  pieChartContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: theme.spacing.sm,
+  },
+  pieChartSection: {
+    alignItems: 'center',
+    marginBottom: theme.spacing.lg,
+    width: '100%',
+    overflow: 'hidden',
   },
   pieCenterLabel: {
     alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
   },
   pieCenterValue: {
-    fontSize: theme.typography.fontSize.xxl,
-    color: theme.colors.textPrimary,
+    fontSize: theme.typography.fontSize.xl,
+    color: theme.colors.primaryDark,
     fontFamily: theme.typography.fontFamily.bold,
+    letterSpacing: 0.5,
   },
   pieCenterText: {
     fontSize: theme.typography.fontSize.sm,
-    color: theme.colors.textSecondary,
+    color: theme.colors.primaryDark,
     fontFamily: theme.typography.fontFamily.regular,
+    marginTop: 2,
   },
-  legendContainer: {
-    justifyContent: 'center',
+  
+  legendSection: {
+    width: '100%',
+    alignItems: 'center',
+    paddingHorizontal: theme.spacing.md,
   },
   legendItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: theme.spacing.sm,
+    marginBottom: theme.spacing.md,
+    width: '100%',
+    maxWidth: 200,
+    paddingHorizontal: theme.spacing.sm,
+    backgroundColor: theme.colors.card,
+    paddingVertical: theme.spacing.xs,
+    borderRadius: theme.borderRadius.full,
   },
   legendDot: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    marginRight: theme.spacing.sm,
+    width: 14,
+    height: 14,
+    borderRadius: 7,
+    marginRight: theme.spacing.md,
+    borderWidth: 0.5,
+    borderColor: theme.colors.border,
+  },
+  legendTextContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  legendLabel: {
+    fontSize: theme.typography.fontSize.sm,
+    color: theme.colors.textSecondary,
+    fontFamily: theme.typography.fontFamily.medium,
+  },
+  legendValue: {
+    fontSize: theme.typography.fontSize.sm,
+    color: theme.colors.textPrimary,
+    fontFamily: theme.typography.fontFamily.bold,
+    minWidth: 30,
+    textAlign: 'right',
+  },
+
+  legendContainer: {
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    paddingLeft: theme.spacing.md,
   },
   legendText: {
     fontSize: theme.typography.fontSize.sm,
     color: theme.colors.textSecondary,
     fontFamily: theme.typography.fontFamily.regular,
   },
+
   insightsContainer: {
     paddingHorizontal: theme.spacing.lg,
     marginTop: theme.spacing.xl,
@@ -183,6 +262,8 @@ export const styles = StyleSheet.create({
     marginBottom: theme.spacing.md,
     borderWidth: 1,
     borderColor: theme.colors.border,
+    alignItems: 'flex-start',
+    elevation: 2,
   },
   insightContent: {
     flex: 1,

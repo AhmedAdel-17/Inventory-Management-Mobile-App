@@ -1,5 +1,5 @@
 // src/screens/Analytics/Analytics.tsx
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   View,
   Text,
@@ -22,31 +22,48 @@ const Analytics: React.FC = () => {
   const navigation = useNavigation();
   const [selectedPeriod, setSelectedPeriod] = useState<'week' | 'month' | 'year'>('month');
 
-  // Mock data for charts
-  const revenueData = [
-    { value: 250000, label: 'Jan' },
-    { value: 280000, label: 'Feb' },
-    { value: 320000, label: 'Mar' },
-    { value: 290000, label: 'Apr' },
-    { value: 350000, label: 'May' },
-    { value: 380000, label: 'Jun' },
-  ];
+  // Optimized chart dimensions with proper calculations
+  const chartDimensions = useMemo(() => ({
+    // Account for: container margins (32) + container padding (32) + extra padding (16)
+    chartWidth: Math.max(screenWidth - 80, 280), // Minimum width 280
+    containerPadding: 16,
+    // Optimal spacing based on screen size
+    barSpacing: Math.max(Math.floor((screenWidth - 200) / 10), 15),
+    lineSpacing: Math.max(Math.floor((screenWidth - 200) / 12), 25),
+  }), [screenWidth]);
 
-  const subscriptionData = [
-    { value: 45, label: 'Platinum', color: theme.colors.tierPlatinum },
-    { value: 78, label: 'Gold', color: theme.colors.tierGold },
-    { value: 120, label: 'Silver', color: theme.colors.tierSilver },
-    { value: 89, label: 'Bronze', color: theme.colors.tierBronze },
-  ];
+  // Optimized data with better formatting
+  const chartData = useMemo(() => ({
+    revenue: [
+      { value: 250, label: 'Jan', dataPointText: '250K', labelTextStyle: { color: theme.colors.textSecondary, fontSize: 10 } },
+      { value: 280, label: 'Feb', dataPointText: '280K', labelTextStyle: { color: theme.colors.textSecondary, fontSize: 10 } },
+      { value: 320, label: 'Mar', dataPointText: '320K', labelTextStyle: { color: theme.colors.textSecondary, fontSize: 10 } },
+      { value: 290, label: 'Apr', dataPointText: '290K', labelTextStyle: { color: theme.colors.textSecondary, fontSize: 10 } },
+      { value: 350, label: 'May', dataPointText: '350K', labelTextStyle: { color: theme.colors.textSecondary, fontSize: 10 } },
+      { value: 380, label: 'Jun', dataPointText: '380K', labelTextStyle: { color: theme.colors.textSecondary, fontSize: 10 } },
+    ],
+    subscriptions: [
+      { value: 45, color: '#E5E4E2', focused: false },
+      { value: 78, color: '#FFD700', focused: false },
+      { value: 120, color: '#C0C0C0', focused: false },
+      { value: 89, color: '#CD7F32', focused: false },
+    ],
+    growth: [
+      { value: 12, label: 'Jan', frontColor: theme.colors.accent, labelTextStyle: { color: theme.colors.textSecondary, fontSize: 9 } },
+      { value: 15, label: 'Feb', frontColor: theme.colors.accent, labelTextStyle: { color: theme.colors.textSecondary, fontSize: 9 } },
+      { value: 18, label: 'Mar', frontColor: theme.colors.accent, labelTextStyle: { color: theme.colors.textSecondary, fontSize: 9 } },
+      { value: 14, label: 'Apr', frontColor: theme.colors.accent, labelTextStyle: { color: theme.colors.textSecondary, fontSize: 9 } },
+      { value: 22, label: 'May', frontColor: theme.colors.accent, labelTextStyle: { color: theme.colors.textSecondary, fontSize: 9 } },
+      { value: 25, label: 'Jun', frontColor: theme.colors.accent, labelTextStyle: { color: theme.colors.textSecondary, fontSize: 9 } },
+    ],
+  }), [theme.colors.accent, theme.colors.textSecondary]);
 
-  const growthData = [
-    { value: 12, dataPointText: '12%' },
-    { value: 15, dataPointText: '15%' },
-    { value: 18, dataPointText: '18%' },
-    { value: 14, dataPointText: '14%' },
-    { value: 22, dataPointText: '22%' },
-    { value: 25, dataPointText: '25%' },
-  ];
+  const subscriptionLabels = useMemo(() => [
+    { label: 'Platinum', value: 45, color: '#E5E4E2' },
+    { label: 'Gold', value: 78, color: '#FFD700' },
+    { label: 'Silver', value: 120, color: '#C0C0C0' },
+    { label: 'Bronze', value: 89, color: '#CD7F32' },
+  ], []);
 
   const renderMetricCard = (icon: string, title: string, value: string, change: string, isPositive: boolean) => (
     <LinearGradient
@@ -115,52 +132,86 @@ const Analytics: React.FC = () => {
 
         <View style={styles.chartContainer}>
           <Text style={styles.chartTitle}>Revenue Trend</Text>
-          <LineChart
-            data={revenueData}
-            width={screenWidth - 48}
-            height={200}
-            color={theme.colors.accent}
-            thickness={3}
-            startFillColor={theme.colors.accent}
-            endFillColor={theme.colors.accent + '20'}
-            startOpacity={0.9}
-            endOpacity={0.2}
-            initialSpacing={0}
-            noOfSections={4}
-            maxValue={400000}
-            yAxisColor={theme.colors.border}
-            xAxisColor={theme.colors.border}
-            yAxisTextStyle={{ color: theme.colors.textSecondary }}
-            xAxisLabelTextStyle={{ color: theme.colors.textSecondary }}
-            dataPointsColor={theme.colors.accent}
-            textShiftY={-5}
-            textShiftX={-10}
-            textColor={theme.colors.textPrimary}
-            areaChart
-            curved
-          />
+          <View style={styles.chartWrapper}>
+            <LineChart
+              data={chartData.revenue}
+              width={chartDimensions.chartWidth}
+              height={200}
+              color={theme.colors.accent}
+              thickness={2.5}
+              areaChart
+              startFillColor={theme.colors.accent}
+              endFillColor={theme.colors.accent}
+              startOpacity={0.15}
+              endOpacity={0.02}
+              initialSpacing={chartDimensions.lineSpacing}
+              endSpacing={chartDimensions.lineSpacing}
+              spacing={Math.floor((chartDimensions.chartWidth - (chartDimensions.lineSpacing * 2)) / (chartData.revenue.length - 1))}
+              noOfSections={4}
+              maxValue={400}
+              stepValue={100}
+              yAxisColor={theme.colors.border}
+              xAxisColor={theme.colors.border}
+              yAxisThickness={0.5}
+              xAxisThickness={0.5}
+              yAxisTextStyle={{
+                color: theme.colors.textSecondary,
+                fontSize: 10,
+                fontFamily: theme.typography.fontFamily.regular,
+              }}
+              xAxisLabelTextStyle={{
+                color: theme.colors.textSecondary,
+                fontSize: 10,
+                fontFamily: theme.typography.fontFamily.regular,
+              }}
+              hideDataPoints={false}
+              dataPointsRadius={4}
+              dataPointsColor={theme.colors.accent}
+              dataPointsColor1={theme.colors.accent}
+              curved
+              isAnimated
+              animationDuration={1200}
+              showVerticalLines={false}
+              showYAxisIndices={false}
+              rulesType="dashed"
+              rulesColor={theme.colors.border}
+              dashWidth={2}
+              dashGap={4}
+            />
+          </View>
         </View>
 
         <View style={styles.chartContainer}>
           <Text style={styles.chartTitle}>Subscription Distribution</Text>
-          <View style={styles.pieChartWrapper}>
-            <PieChart
-              data={subscriptionData}
-              donut
-              radius={90}
-              innerRadius={60}
-              centerLabelComponent={() => (
-                <View style={styles.pieCenterLabel}>
-                  <Text style={styles.pieCenterValue}>332</Text>
-                  <Text style={styles.pieCenterText}>Total</Text>
-                </View>
-              )}
-            />
-            <View style={styles.legendContainer}>
-              {subscriptionData.map((item, index) => (
+          <View style={styles.pieChartContainer}>
+            <View style={styles.pieChartSection}>
+              <PieChart
+                data={chartData.subscriptions}
+                donut
+                radius={75}
+                innerRadius={48}
+                strokeColor={theme.colors.background}
+                strokeWidth={1}
+                centerLabelComponent={() => (
+                  <View style={styles.pieCenterLabel}>
+                    <Text style={styles.pieCenterValue}>332</Text>
+                    <Text style={styles.pieCenterText}>Total</Text>
+                  </View>
+                )}
+                isAnimated
+                animationDuration={1000}
+                showText={false}
+                showValuesAsLabels={false}
+              />
+            </View>
+            <View style={styles.legendSection}>
+              {subscriptionLabels.map((item, index) => (
                 <View key={index} style={styles.legendItem}>
                   <View style={[styles.legendDot, { backgroundColor: item.color }]} />
-                  <Text style={styles.legendText}>{item.label}: {item.value}</Text>
+                  <View style={styles.legendTextContainer}>
+                    <Text style={styles.legendLabel}>{item.label}</Text>
+                    <Text style={styles.legendValue}>{item.value}</Text>
+                  </View>
                 </View>
               ))}
             </View>
@@ -168,23 +219,56 @@ const Analytics: React.FC = () => {
         </View>
 
         <View style={styles.chartContainer}>
-          <Text style={styles.chartTitle}>Growth Rate</Text>
-          <View style={{ alignItems: 'center', paddingVertical: 10 }}>
+          <Text style={styles.chartTitle}>Growth Rate (%)</Text>
+          <View style={styles.chartWrapper}>
             <BarChart
-              data={growthData}
-              width={screenWidth - 100}
+              data={chartData.growth}
+              width={chartDimensions.chartWidth}
               height={180}
-              barWidth={35}
+              // Bar configuration
+              barWidth={Math.min(35, Math.floor((chartDimensions.chartWidth - 100) / chartData.growth.length))}
+              spacing={chartDimensions.barSpacing}
+              initialSpacing={20}
+              endSpacing={20}
+              // Bar styling
+              barBorderRadius={6}
+              barBorderTopLeftRadius={6}
+              barBorderTopRightRadius={6}
+              // Axis configuration
+              yAxisThickness={0.5}
+              xAxisThickness={0.5}
+              yAxisColor={theme.colors.border}
+              xAxisColor={theme.colors.border}
               noOfSections={5}
-              barBorderRadius={4}
-              frontColor={theme.colors.accent}
-              yAxisThickness={0}
-              xAxisThickness={0}
-              yAxisTextStyle={{ color: theme.colors.textSecondary }}
-              isAnimated
-              spacing={20}
-              initialSpacing={10}
               maxValue={30}
+              stepValue={6}
+              // Text styling
+              yAxisTextStyle={{
+                color: theme.colors.textSecondary,
+                fontSize: 10,
+                fontFamily: theme.typography.fontFamily.regular,
+              }}
+              xAxisLabelTextStyle={{
+                color: theme.colors.textSecondary,
+                fontSize: 9,
+                fontFamily: theme.typography.fontFamily.regular,
+              }}
+              // Animation
+              isAnimated
+              animationDuration={1000}
+              // Grid lines
+              showVerticalLines={false}
+              rulesType="dashed"
+              rulesColor={theme.colors.border + '40'}
+              dashWidth={2}
+              dashGap={4}
+              // Value labels
+              showValuesAsTopLabel
+              topLabelTextStyle={{
+                color: theme.colors.textPrimary,
+                fontSize: 11,
+                fontFamily: theme.typography.fontFamily.semiBold,
+              }}
             />
           </View>
         </View>

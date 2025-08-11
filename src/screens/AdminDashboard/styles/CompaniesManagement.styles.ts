@@ -59,14 +59,20 @@ export const styles = StyleSheet.create({
   },
   filterContainer: {
     marginTop: theme.spacing.md,
+    height: 60, 
+    backgroundColor: theme.colors.background,
   },
   filterContent: {
     paddingHorizontal: theme.spacing.lg,
     gap: theme.spacing.sm,
+    alignItems: 'center', // Ensure buttons are centered vertically
+    height: 40, // Match the filterContainer height
   },
   filterButton: {
+    height: 40, // Fixed height for all filter buttons
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingHorizontal: theme.spacing.md,
-    paddingVertical: theme.spacing.sm,
     borderRadius: theme.borderRadius.lg,
     backgroundColor: theme.colors.surface,
     borderWidth: 1,
@@ -80,6 +86,8 @@ export const styles = StyleSheet.create({
     fontSize: theme.typography.fontSize.sm,
     color: theme.colors.textSecondary,
     fontFamily: theme.typography.fontFamily.medium,
+    textAlignVertical: 'center', // Ensure vertical alignment
+    includeFontPadding: false,   // Android: remove extra padding
   },
   filterButtonTextActive: {
     color: '#FFFFFF',
