@@ -1,4 +1,3 @@
-// src/screens/SubscriptionManagement/SubscriptionManagement.tsx
 import React, { useState } from 'react';
 import {
   View,
@@ -8,7 +7,6 @@ import {
   SafeAreaView,
   StatusBar,
   Modal,
-  TextInput,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
@@ -27,6 +25,13 @@ interface Subscription {
   amount: number;
   autoRenew: boolean;
 }
+
+// ✅ Helper to format big numbers
+const formatNumber = (num: number, isCurrency: boolean = false) => {
+  if (num >= 1_000_000) return (num / 1_000_000).toFixed(1) + 'M';
+  if (num >= 1_000) return (num / 1_000).toFixed(1) + 'K';
+  return isCurrency ? `$${num.toLocaleString()}` : num.toLocaleString();
+};
 
 const SubscriptionManagement: React.FC = () => {
   const navigation = useNavigation();
@@ -196,12 +201,20 @@ const SubscriptionManagement: React.FC = () => {
         </TouchableOpacity>
       </View>
 
+      {/* ✅ Fixed Stats Cards */}
       <View style={styles.statsContainer}>
         <LinearGradient
           colors={['rgba(52, 211, 153, 0.1)', 'rgba(52, 211, 153, 0.05)']}
           style={styles.statCard}
         >
-          <Text style={styles.statValue}>$45,890</Text>
+          <Text
+            style={styles.statValue}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.85}
+          >
+            {formatNumber(45890, true)}
+          </Text>
           <Text style={styles.statLabel}>Monthly Revenue</Text>
         </LinearGradient>
         
@@ -209,7 +222,14 @@ const SubscriptionManagement: React.FC = () => {
           colors={['rgba(59, 130, 246, 0.1)', 'rgba(59, 130, 246, 0.05)']}
           style={styles.statCard}
         >
-          <Text style={styles.statValue}>142</Text>
+          <Text
+            style={styles.statValue}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.85}
+          >
+            {formatNumber(142)}
+          </Text>
           <Text style={styles.statLabel}>Active Subscriptions</Text>
         </LinearGradient>
         
@@ -217,7 +237,14 @@ const SubscriptionManagement: React.FC = () => {
           colors={['rgba(245, 158, 11, 0.1)', 'rgba(245, 158, 11, 0.05)']}
           style={styles.statCard}
         >
-          <Text style={styles.statValue}>8</Text>
+          <Text
+            style={styles.statValue}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.85}
+          >
+            {formatNumber(8)}
+          </Text>
           <Text style={styles.statLabel}>Expiring Soon</Text>
         </LinearGradient>
       </View>

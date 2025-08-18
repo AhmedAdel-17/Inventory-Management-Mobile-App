@@ -180,22 +180,28 @@ const ProductManagement: React.FC = () => {
           </Text>
           
           <View style={styles.productMeta}>
-            <View style={styles.priceContainer}>
-              <Text style={styles.priceLabel}>Price</Text>
-              <Text style={styles.priceValue}>${item.price.toFixed(2)}</Text>
+            {/* Price and Stock in a row */}
+            <View style={styles.priceStockRow}>
+              <View style={styles.priceContainer}>
+                <Text style={styles.priceLabel}>Price</Text>
+                <Text style={styles.priceValue}>${item.price.toFixed(2)}</Text>
+              </View>
+              
+              <View style={styles.quantityContainer}>
+                <Text style={styles.quantityLabel}>Stock</Text>
+                <Text style={[styles.quantityValue, { color: getStatusColor(item.status) }]}>
+                  {item.quantity}
+                </Text>
+              </View>
             </View>
             
-            <View style={styles.quantityContainer}>
-              <Text style={styles.quantityLabel}>Stock</Text>
-              <Text style={[styles.quantityValue, { color: getStatusColor(item.status) }]}>
-                {item.quantity}
-              </Text>
-            </View>
-            
-            <View style={[styles.statusBadge, { backgroundColor: getStatusColor(item.status) + '20' }]}>
-              <Text style={[styles.statusText, { color: getStatusColor(item.status) }]}>
-                {getStatusText(item.status)}
-              </Text>
+            {/* Status badge on its own row */}
+            <View style={styles.statusBadgeContainer}>
+              <View style={[styles.statusBadge, { backgroundColor: getStatusColor(item.status) + '20' }]}>
+                <Text style={[styles.statusText, { color: getStatusColor(item.status) }]}>
+                  {getStatusText(item.status)}
+                </Text>
+              </View>
             </View>
           </View>
         </View>

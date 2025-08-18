@@ -55,12 +55,14 @@ export const styles = StyleSheet.create({
     fontSize: theme.typography.fontSize.xl,
     color: theme.colors.textPrimary,
     fontFamily: theme.typography.fontFamily.bold,
+    textAlign: 'center',
   },
   summaryLabel: {
     fontSize: theme.typography.fontSize.xs,
     color: theme.colors.textSecondary,
     fontFamily: theme.typography.fontFamily.regular,
     marginTop: theme.spacing.xs,
+    textAlign: 'center',
   },
   listContent: {
     paddingHorizontal: theme.spacing.lg,
@@ -169,6 +171,7 @@ export const styles = StyleSheet.create({
     borderTopLeftRadius: theme.borderRadius.xl,
     borderTopRightRadius: theme.borderRadius.xl,
     maxHeight: '90%',
+    
   },
   modalHeader: {
     flexDirection: 'row',
@@ -253,6 +256,7 @@ export const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: theme.colors.border,
     gap: theme.spacing.md,
+    
   },
   cancelButton: {
     flex: 1,

@@ -132,9 +132,17 @@ export const styles = StyleSheet.create({
     marginLeft: theme.spacing.sm,
   },
   actionButtons: {
+    gap: theme.spacing.sm,
+  },
+  topButtonsRow: {
     flexDirection: 'row',
     gap: theme.spacing.sm,
-    flexWrap: 'wrap',
+  },
+  bottomButtonRow: {
+    width: '100%',
+  },
+  rejectButtonContainer: {
+    flex: 1,
   },
   rejectButton: {
     flexDirection: 'row',
@@ -147,7 +155,6 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.error,
     gap: theme.spacing.xs,
-    minWidth: 90,
   },
   rejectButtonText: {
     fontSize: theme.typography.fontSize.sm,
@@ -165,12 +172,15 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.info,
     gap: theme.spacing.xs,
-    minWidth: 120,
+    width: '100%',
   },
   viewDetailsText: {
     fontSize: theme.typography.fontSize.sm,
     color: theme.colors.info,
     fontFamily: theme.typography.fontFamily.medium,
+  },
+  approveButtonContainer: {
+    flex: 1,
   },
   approveButton: {
     flexDirection: 'row',
@@ -180,7 +190,6 @@ export const styles = StyleSheet.create({
     paddingHorizontal: theme.spacing.md,
     borderRadius: theme.borderRadius.lg,
     gap: theme.spacing.xs,
-    minWidth: 100,
   },
   processingButton: {
     opacity: 0.7,

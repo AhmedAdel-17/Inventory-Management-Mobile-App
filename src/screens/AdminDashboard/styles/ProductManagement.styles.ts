@@ -1,4 +1,4 @@
-// src/screens/ProductManagement/ProductManagement.styles.ts
+// src/screens/ProductManagement/styles/ProductManagement.styles.ts
 import { StyleSheet } from 'react-native';
 import { theme } from '../../../theme/theme';
 
@@ -128,18 +128,27 @@ export const styles = StyleSheet.create({
     fontFamily: theme.typography.fontFamily.regular,
     marginBottom: theme.spacing.md,
   },
+  
+  // ✅ FIXED: Better layout for product meta information
   productMeta: {
+    flexDirection: 'column',
+    gap: theme.spacing.sm,
+  },
+  priceStockRow: {
     flexDirection: 'row',
-    alignItems: 'center',
-    gap: theme.spacing.md,
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: theme.spacing.sm,
   },
   priceContainer: {
     flex: 1,
+    marginRight: theme.spacing.md,
   },
   priceLabel: {
     fontSize: theme.typography.fontSize.xs,
     color: theme.colors.textMuted,
     fontFamily: theme.typography.fontFamily.regular,
+    marginBottom: 2,
   },
   priceValue: {
     fontSize: theme.typography.fontSize.md,
@@ -147,51 +156,64 @@ export const styles = StyleSheet.create({
     fontFamily: theme.typography.fontFamily.semiBold,
   },
   quantityContainer: {
-    flex: 1,
+    alignItems: 'center',
   },
   quantityLabel: {
     fontSize: theme.typography.fontSize.xs,
     color: theme.colors.textMuted,
     fontFamily: theme.typography.fontFamily.regular,
+    marginBottom: 2,
+    textAlign: 'center',
   },
   quantityValue: {
     fontSize: theme.typography.fontSize.md,
     fontFamily: theme.typography.fontFamily.semiBold,
+    textAlign: 'center',
+  },
+  statusBadgeContainer: {
+    alignSelf: 'flex-start',
   },
   statusBadge: {
-    paddingHorizontal: theme.spacing.md,
+    paddingHorizontal: theme.spacing.sm,
     paddingVertical: theme.spacing.xs,
     borderRadius: theme.borderRadius.full,
+    alignItems: 'center',
   },
   statusText: {
     fontSize: theme.typography.fontSize.xs,
     fontFamily: theme.typography.fontFamily.semiBold,
+    textAlign: 'center',
   },
   cardActions: {
     flexDirection: 'row',
     borderTopWidth: 1,
     borderTopColor: theme.colors.border,
     paddingHorizontal: theme.spacing.lg,
-    paddingVertical: theme.spacing.sm,
-    gap: theme.spacing.sm,
+    paddingVertical: theme.spacing.md,
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   actionButton: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: theme.spacing.md,
+    paddingHorizontal: theme.spacing.sm,
     paddingVertical: theme.spacing.sm,
     borderRadius: theme.borderRadius.md,
     backgroundColor: theme.colors.surface,
-    gap: theme.spacing.xs,
+    justifyContent: 'center',
+    marginHorizontal: theme.spacing.xs,
   },
   actionText: {
     fontSize: theme.typography.fontSize.sm,
     color: theme.colors.info,
     fontFamily: theme.typography.fontFamily.medium,
+    marginLeft: theme.spacing.xs,
   },
   deleteButton: {
     backgroundColor: 'rgba(239, 68, 68, 0.1)',
   },
+
   emptyContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -213,7 +235,7 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.colors.background,
     borderTopLeftRadius: theme.borderRadius.xl,
     borderTopRightRadius: theme.borderRadius.xl,
-    maxHeight: '90%',
+    maxHeight: '85%',
   },
   modalHeader: {
     flexDirection: 'row',
@@ -228,9 +250,14 @@ export const styles = StyleSheet.create({
     color: theme.colors.textPrimary,
     fontFamily: theme.typography.fontFamily.semiBold,
   },
+  
+  // ✅ FIXED: Modal body for better scrolling and image upload visibility
   modalBody: {
-    padding: theme.spacing.lg,
+    paddingHorizontal: theme.spacing.lg,
+    paddingVertical: theme.spacing.md,
+    flexGrow: 1,
   },
+  
   inputGroup: {
     marginBottom: theme.spacing.lg,
   },
@@ -276,6 +303,8 @@ export const styles = StyleSheet.create({
     color: theme.colors.textPrimary,
     fontFamily: theme.typography.fontFamily.regular,
   },
+  
+  // ✅ FIXED: Enhanced image upload button
   imageUploadButton: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -283,17 +312,19 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.colors.surface,
     borderRadius: theme.borderRadius.lg,
     paddingVertical: theme.spacing.lg,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderWidth: 2,
+    borderColor: theme.colors.accent,
     borderStyle: 'dashed',
-    gap: theme.spacing.sm,
     marginTop: theme.spacing.sm,
+    marginBottom: theme.spacing.lg,
   },
   imageUploadText: {
     fontSize: theme.typography.fontSize.md,
     color: theme.colors.accent,
     fontFamily: theme.typography.fontFamily.medium,
+    marginLeft: theme.spacing.sm,
   },
+  
   modalFooter: {
     flexDirection: 'row',
     padding: theme.spacing.lg,

@@ -60,6 +60,9 @@ export const styles = StyleSheet.create({
     color: theme.colors.textPrimary,
     fontFamily: theme.typography.fontFamily.bold,
     textAlign: 'center',
+    flexShrink: 1,         
+    maxWidth: '90%',       
+    includeFontPadding: false,
   },
   statLabel: {
     fontSize: theme.typography.fontSize.xs,
@@ -67,7 +70,9 @@ export const styles = StyleSheet.create({
     fontFamily: theme.typography.fontFamily.regular,
     marginTop: theme.spacing.xs,
     textAlign: 'center',
+    flexWrap: 'wrap',
   },
+
   filterContainer: {
     flexDirection: 'row',
     paddingHorizontal: theme.spacing.lg,

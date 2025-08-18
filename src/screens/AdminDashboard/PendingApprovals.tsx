@@ -175,43 +175,54 @@ const PendingApprovals: React.FC = () => {
         </View>
 
         <View style={styles.actionButtons}>
-          <TouchableOpacity
-            style={styles.rejectButton}
-            onPress={() => handleReject(item)}
-            disabled={isProcessing}
-          >
-            <Icon name="close" size={20} color={theme.colors.error} />
-            <Text style={styles.rejectButtonText}>Reject</Text>
-          </TouchableOpacity>
+          {/* First Row: Reject and Approve buttons */}
+          <View style={styles.topButtonsRow}>
+            <View style={styles.rejectButtonContainer}>
+              <TouchableOpacity
+                style={styles.rejectButton}
+                onPress={() => handleReject(item)}
+                disabled={isProcessing}
+              >
+                <Icon name="close" size={20} color={theme.colors.error} />
+                <Text style={styles.rejectButtonText}>Reject</Text>
+              </TouchableOpacity>
+            </View>
 
-          <TouchableOpacity
-            style={styles.viewDetailsButton}
-            onPress={() => navigation.navigate('EditCompany', { companyId: item.id })}
-            disabled={isProcessing}
-          >
-            <Icon name="eye" size={20} color={theme.colors.info} />
-            <Text style={styles.viewDetailsText}>View Details</Text>
-          </TouchableOpacity>
+            <View style={styles.approveButtonContainer}>
+              <TouchableOpacity
+                onPress={() => handleApprove(item)}
+                disabled={isProcessing}
+                activeOpacity={0.8}
+                style={{ flex: 1 }}
+              >
+                <LinearGradient
+                  colors={[theme.colors.success, '#10B981']}
+                  style={[styles.approveButton, isProcessing && styles.processingButton]}
+                >
+                  {isProcessing ? (
+                    <Text style={styles.approveButtonText}>Processing...</Text>
+                  ) : (
+                    <>
+                      <Icon name="check" size={20} color="#FFFFFF" />
+                      <Text style={styles.approveButtonText}>Approve</Text>
+                    </>
+                  )}
+                </LinearGradient>
+              </TouchableOpacity>
+            </View>
+          </View>
 
-          <TouchableOpacity
-            onPress={() => handleApprove(item)}
-            disabled={isProcessing}
-            activeOpacity={0.8}
-          >
-            <LinearGradient
-              colors={[theme.colors.success, '#10B981']}
-              style={[styles.approveButton, isProcessing && styles.processingButton]}
+          {/* Second Row: View Details button */}
+          <View style={styles.bottomButtonRow}>
+            <TouchableOpacity
+              style={styles.viewDetailsButton}
+              onPress={() => navigation.navigate('EditCompany', { companyId: item.id })}
+              disabled={isProcessing}
             >
-              {isProcessing ? (
-                <Text style={styles.approveButtonText}>Processing...</Text>
-              ) : (
-                <>
-                  <Icon name="check" size={20} color="#FFFFFF" />
-                  <Text style={styles.approveButtonText}>Approve</Text>
-                </>
-              )}
-            </LinearGradient>
-          </TouchableOpacity>
+              <Icon name="eye" size={20} color={theme.colors.info} />
+              <Text style={styles.viewDetailsText}>View Details</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     );
